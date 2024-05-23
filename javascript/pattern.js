@@ -188,6 +188,7 @@ const oppHalfButterFly = (level)=>{
 
 }
 
+// full butter fly patter star
 const fullButterFly = (level)=>{
 
     // first half butter fly
@@ -199,7 +200,120 @@ const fullButterFly = (level)=>{
 
 }
 
-fullButterFly(4);
+// slid rhombus patter * 
+
+const solidRhomubusPatter = (level,star=4)=>{
+
+    for(let i=1;i<=level;i++){
+        let array = [];
+
+        // store space 
+        for(let j=1;j<=(level-i);j++)
+            array.push(' ')
+
+        // store *
+
+        for(let j=1;j<=star;j++)
+            array.push('*')
+
+        // print the patter
+        console.log(...array);
+    
+    }
 
 
 
+}
+
+// opposit solid rhomubus patter 
+
+const oppSolidRhomubusPttern = (level,star=5)=>{
+
+    for(let i = 0; i<level;i++){
+
+        let array = [];
+
+        // store sapce 
+        for(let j=1;j<=i;j++)
+            array.push(' ')
+
+        for(let j=0;j<star;j++)
+            array.push('*')
+
+        // print one row pattern
+        console.log(...array);
+
+    }
+
+
+
+}
+
+// number payramid 
+
+const numberPayramid = (level)=>{
+
+
+    for(let i = 1; i<=level;i++){
+
+        let array = [];
+
+        // store space 
+
+        for(let j=1;j<=level-i;j++)
+            array.push(' ')
+
+        // store *
+        for(let j=1;j<=2*i-1;j++){
+           
+           if (j%2==0) {
+               
+               array.push(' ')
+        } else {
+               array.push(i)
+            
+           }
+           
+        } 
+            
+
+            // print pattern 
+            console.log(...array);
+
+
+    }
+}
+
+
+// palindromic pattern
+
+const palindromicPattern = (level)=>{
+
+    for(let i = 1; i<=level;i++){
+
+        let array = [];
+
+        for(let j=i;j<level;j++) // store space
+            array.push(' ')  
+
+        // store desc number
+
+        for(let j=i;j>=1;j--)
+            array.push(j);
+        
+        // store asc number
+
+        for(let j=2;j<=i;j++)
+            array.push(j);
+
+
+        // print one row patern 
+        console.log(...array);
+    }
+
+
+
+}
+
+
+palindromicPattern(5);
