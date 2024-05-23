@@ -138,4 +138,68 @@ function reactAnglePatter(row=0,col=0){
             console.log(`${array}\n`);
     }
 })
-(5)
+// (5)
+
+// half  butter fly
+
+const halfButterFly = (level)=>{
+
+    for (let i = 1; i <= level; i++) {
+        
+        let array = [];
+         
+        for(let j = 1; j<=i;j++) // store first *
+                array.push('*');
+            
+            for(let j =1; j<=2*(level-i);j++) // store spaces 
+            array.push(' ');
+            
+            for(let j = 1; j<=i;j++) // store last *
+                    array.push('*');
+
+            // print one row 
+            console.log(...array);
+    }
+
+
+
+};
+
+// opposit half butturFly * pattern
+
+const oppHalfButterFly = (level)=>{
+
+
+    for(let i = level; i>0 ; i--){
+        let array = [];
+
+            for(let j=i; j>0;j--)
+                array.push('*'); // store star
+                for(let j=1; j<=2*(level-i);j++)
+                array.push(' '); // store space 2 *(level-i) i = number of row
+                
+                for(let j=i; j>0;j--)
+                    array.push('*'); // store last star
+    
+                        console.log(...array) // print row pattern
+    
+    }
+
+
+}
+
+const fullButterFly = (level)=>{
+
+    // first half butter fly
+    halfButterFly(level);
+
+    // then opposit half butter fly
+    oppHalfButterFly(level);
+
+
+}
+
+fullButterFly(4);
+
+
+
