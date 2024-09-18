@@ -32,3 +32,4 @@ find_occurance(str,index,target)
 console.log(first,' ',last)
 }
 
+
