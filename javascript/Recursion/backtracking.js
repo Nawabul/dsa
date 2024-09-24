@@ -118,3 +118,102 @@ const solveQueen = (n)=>{
 }
 
 solveQueen(4)
+
+
+class suduku {
+	
+	board;
+	constructor(board) {
+		this.board = board;
+		// console.log(board)
+		this.helper(board,0,0);
+	}
+	// helper to assign
+	helper (board,row,col){
+		let nrow = row;
+		let ncol = col;
+		console.log(row,' ',col)
+		if(col==9){
+			nrow = row +1
+			ncol =0
+		}
+		if(nrow === board.length){
+
+			console.log(board);
+			return true;
+		}
+		
+	
+		// already have number 
+		if(board[nrow][ncol]){
+
+			return this.helper(board,nrow,ncol+1)
+			
+		}else{
+			// try all number
+			for(let i=1;i<=9;i++){
+				if(this.isValid(board,nrow,ncol,i)){
+					board[nrow][ncol] = i
+					// check next 
+					if(this.helper(board,nrow,ncol+1)){
+						return true
+					}else{
+						board[nrow][ncol] = null
+						
+						
+					}
+				}
+			}
+			return false
+		}
+	
+	}
+
+	// isValid function 
+	isValid (board,row,col,number){
+		// check row
+		for(let i =0;i<9;i++){
+			if(board[row][i] === number){
+				return false;
+			}
+		}
+		// check column
+		for(let i =0;i<9;i++){
+			// console.log(board)
+			if(board[i][col] === number){
+				return false;
+			}
+		}
+		
+		// check in grid ; 
+		let startRow = Math.floor(row/3)*3
+		let startCol = Math.floor(col/3)*3
+		
+		for(let i = startRow; i<=(startRow+2);i++){
+			
+			for(let j = startCol; j<=(startCol+2);j++){
+				if(board[i][j]==number){
+					false
+				}
+			}
+		}
+			
+		return true;
+	}
+
+
+}
+
+let array = [
+		[null,8,null,7,null,1,null,3,null],
+		[4,null,9,null,null,null,null,null,null],
+		[null,5,null,null,6,null,4,1,8],
+		[7,null,null,null,null,9,null,null,null],
+		[8,null,null,6,1,null,5,null,null],
+		[null,3,5,null,null,null,null,2,9],
+		[null,6,null,4,null,7,null,9,null],
+		[1,null,null,null,null,8,null,null,4],
+		[null,2,null,null,5,null,null,7,null]
+]
+
+new suduku(array);
