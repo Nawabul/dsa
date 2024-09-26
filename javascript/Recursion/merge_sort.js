@@ -41,7 +41,7 @@ class mergeSort {
 			mergeArray[x++] = array[idx1++]
 			
 		}
-		while (x<=end ){
+		while (idx2<=end ){
 			mergeArray[x++] = array[idx2++]
 			
 		}
