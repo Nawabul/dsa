@@ -15,6 +15,7 @@ class linkedList {
 	// data in first
 	addFirst(data){
 		const newNode = new node(data)
+
 		if(this.head==null){
 			// add first list in linked
 			this.head = newNode;
@@ -62,11 +63,16 @@ class linkedList {
 	}
 	// print all node in list
 	printNode(){
+
+		if(this.head == null){
+			console.log('list is empty')
+			return 
+		}
 		let currentNode = this.head
 		let data = ''
-		while(currentNode.next !== null){
-			currentNode = currentNode.next;
+		while(currentNode !== null){
 			data += '->'+currentNode.data
+			currentNode = currentNode.next;
 		}
 		console.log(data)		
 	}
@@ -74,14 +80,12 @@ class linkedList {
 
 let list = new linkedList();
 // add first data
-list.addFirst('Test');
-list.addFirst('is');
-list.addFirst('This');
-list.addLast('a');
-list.addLast('list');
 
+list.addFirst('a')
+list.addFirst('is')
+list.addFirst('This')
+list.addLast('list')
 
-list.addLast('last');
-
+list.deleteFirst()
 // print list
 list.printNode()
