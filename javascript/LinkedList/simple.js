@@ -161,6 +161,72 @@ class linkedList {
 
 	}
 
+	reversPartial(head=this.head){
+		// base case 
+
+		if(head == null || head.next == null){
+			return head
+		}
+
+		let prev = head
+		let current = head.next
+
+		while(current != null){
+			// next node
+			let next = current.next;
+			// reverse link
+			current.next = prev 
+			prev = current
+			current = next
+		}
+		head.next = null
+		return prev
+	}
+
+	findMidlle(){
+		// base case
+		if(this.head == null || this.head.next == null){
+				return this.head;
+		}
+
+		let turtal = this.head;
+		let hare = this.head;
+		
+
+		while(hare.next != null && hare.next.next){
+
+			turtal = turtal.next;
+			hare = hare.next.next
+			
+		}
+		return turtal;
+	}
+
+	isPalindrom(){
+		// base case
+		if(this.head == null || this.head.next == null){
+			return true;
+		
+		}
+
+		// find middle of the link
+		let middle = this.findMidlle();
+		// revers half link
+		let firstHead = this.head;
+		let secondHead = this.reversPartial(middle.next);
+
+		// check palindrom 
+		while(secondHead.next != null){
+
+			if(firstHead.data != secondHead.data){
+				return false
+			}
+			firstHead = firstHead.next;
+			secondHead = secondHead.next;
+		}
+		return true;
+	}
+
 	reverseByrecursion(head){
 		if(head == null || head.next ==null){
 			return head
@@ -194,17 +260,14 @@ class linkedList {
 let list = new linkedList();
 // add first data
 
-list.addFirst('a')
-list.addFirst('is')
-list.addFirst('This')
-list.addLast('list')
+list.addFirst('2')
+// list.addFirst('2')
+list.addFirst('1')
+list.addLast('1')
 
 
 // print list
 list.printNode()
 
-// list.head = list.reverseByrecursion(list.head)
-// delete 2 node
-list.deleteLastNth(1);
-// reverse list
-list.printNode();
+
+console.log(list.isPalindrom());
