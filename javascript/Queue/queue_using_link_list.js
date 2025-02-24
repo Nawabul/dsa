@@ -4,11 +4,11 @@ class Queue {
 	 student_name;
 	 role_number;
 	head = null
-	 constructor(id,student_name,role_number,head){
+	 constructor(id,student_name,role_number){
 		this.id = id
 		this.student_name = student_name
 		this.role_number = role_number
-		this.head = head
+		
 	 }
 
 }
@@ -35,31 +35,42 @@ class QueueUsingLL {
 		// create queue instance 
 		// is first element
 		const queue = new Queue(id,student_name,role_number,null);
+		
 		this.size ++;
 		if(this.isEmpty()){
 			this.front_head = queue
+			this.rear_head = queue;
 			
 			return 
 			
 		}
 
-		const current_head = this.front_head // get last node head
+		// O(1)
+		this.rear_head.head = queue // store last previous node head 
+		this.rear_head = queue      // store last node in rear head
 
-		while(current_head.head != null){
-			current_head = current_head.head
-		}
 
-		current_head.head = queue;
+		// O(n)
+		// const current_head = this.front_head // get last node head
+
+		// while(current_head.head != null){
+		// 	current_head = current_head.head
+		// }
+
+		// current_head.head = queue;
 		
 	 }
 
 	 pull(){
+
+		// time complexcity O(1)
 
 		console.log('this is pull')
 		if(this.isEmpty()){
 			console.log("Queue is empty")
 			return 
 		}
+		this.size--;
 
 		const first = this.front_head
 		this.front_head = this.front_head.head;
@@ -106,7 +117,9 @@ const queue = new QueueUsingLL();
 queue.push(1,"Nawabul",22)
 queue.push(2,"Meraj",23)
 
+
 queue.pull() // print first node 
+
 
 // print list 
 queue.list()
