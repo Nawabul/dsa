@@ -62,8 +62,8 @@ class Queue {
 const queue = new Queue(2);
 
 queue.push(1);
-queue.push(1);
 queue.push(2);
+queue.push(3);
 
 
 
