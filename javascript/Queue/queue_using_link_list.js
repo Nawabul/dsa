@@ -106,6 +106,58 @@ class QueueUsingLL {
 		}
 	 }
 
+	 sortByRoll() {
+		console.log("Queue sorting by roll number");
+		if (this.isEmpty() || this.front_head.head === null) {
+			console.log('Queue is empty or has only one node. No sorting needed.');
+			return;
+		}
+	
+		let swapped;
+		do {
+			swapped = false;
+			let prev = null;
+			let current = this.front_head;
+	
+			while (current !== null && current.head !== null) {
+				if (current.role_number > current.head.role_number) {
+					// Swap nodes
+					let nextNode = current.head;
+					current.head = nextNode.head;
+					nextNode.head = current;
+	
+					if (prev === null) {
+						// Swapping at the head of the list
+						this.front_head = nextNode;
+					} else {
+						// Link previous node to the new front of this pair
+						prev.head = nextNode;
+					}
+	
+					// Mark swap as done
+					swapped = true;
+					prev = nextNode;
+				} else {
+					// No swap needed; move both pointers forward
+					prev = current;
+					current = current.head;
+				}
+			}
+		} while (swapped);
+	
+		// Update rear_head after sorting
+		let temp = this.front_head;
+		while (temp.head !== null) {
+			temp = temp.head;
+		}
+		this.rear_head = temp;
+	
+		console.log("Queue sorted by roll number successfully.");
+	}
+	
+
+
+
 }
 
 // create instance 
@@ -114,11 +166,13 @@ const queue = new QueueUsingLL();
 
 // add first student
 
-queue.push(1,"Nawabul",22)
+queue.push(1,"Nawabul",24)
 queue.push(2,"Meraj",23)
+// queue.push(3,"Faiz",22)
+// queue.push(3,"Test",21)
 
 
-queue.pull() // print first node 
+queue.sortByRoll() // print first node 
 
 
 // print list 
