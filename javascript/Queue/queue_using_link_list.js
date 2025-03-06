@@ -1,13 +1,9 @@
 
 class Queue {
-	 id;
-	 student_name;
-	 role_number;
+	 data
 	head = null
-	 constructor(id,student_name,role_number){
-		this.id = id
-		this.student_name = student_name
-		this.role_number = role_number
+	 constructor(data){
+		this.data = data;
 		
 	 }
 
@@ -30,11 +26,11 @@ class QueueUsingLL {
 
 	 // push the data
 
-	 push(id,student_name,role_number){
+	 push(data){
 
 		// create queue instance 
 		// is first element
-		const queue = new Queue(id,student_name,role_number,null);
+		const queue = new Queue(data,null);
 		
 		this.size ++;
 		if(this.isEmpty()){
@@ -65,7 +61,7 @@ class QueueUsingLL {
 
 		// time complexcity O(1)
 
-		console.log('this is pull')
+		
 		if(this.isEmpty()){
 			console.log("Queue is empty")
 			return 
@@ -75,7 +71,7 @@ class QueueUsingLL {
 		const first = this.front_head
 		this.front_head = this.front_head.head;
 		
-		console.log(`id : ${first.id}  name : ${first.student_name}  role number : ${first.role_number}` );
+		return first.data;
 
 
 	 }
@@ -84,7 +80,7 @@ class QueueUsingLL {
 		const first = this.front_head
 		console.log("This is peek")
 		
-		console.log(`id : ${first.id}  name : ${first.student_name}  role number : ${first.role_number}` );
+		return first;
 
 	 }
 
@@ -164,16 +160,17 @@ class QueueUsingLL {
 
 const queue = new QueueUsingLL();
 
+module.exports  = QueueUsingLL
 // add first student
 
-queue.push(1,"Nawabul",24)
-queue.push(2,"Meraj",23)
+// queue.push(1,"Nawabul",24)
+// queue.push(2,"Meraj",23)
 // queue.push(3,"Faiz",22)
 // queue.push(3,"Test",21)
 
 
-queue.sortByRoll() // print first node 
+// queue.sortByRoll() // print first node 
 
 
 // print list 
-queue.list()
+// queue.list()
