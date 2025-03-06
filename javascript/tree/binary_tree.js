@@ -76,22 +76,13 @@ class Tree {
 		const leftNode = root.left
 		const rightNode = root.right
 		
-		if(leftNode){
-			// print left subtree
-			// print left node data if exist 
-			// console.log(leftNode.data)
-		}
 		
 		this.inOrderTraversal(leftNode)
 		// print root node data
 		console.log(data)
 		this.inOrderTraversal(rightNode)
 
-		if(rightNode){
-
-			// traveras right sub tree
-			// console.log(rightNode.data)	
-		}
+	
 	}
 
 }
