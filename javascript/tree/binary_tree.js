@@ -13,6 +13,8 @@ class Node {
 
 class Tree {
 
+	diameterObject = {}
+
 	constructor(array){
 		const root = this.buildTree(array)
 		// console.log(root.data)
@@ -37,11 +39,17 @@ class Tree {
 		// console.log(this.count(root,0))
 
 		// sum
-		const sum = this.sum(root);
-		console.log('sum : ',sum)
-		// sum
-		const hight = this.hight(root);
-		console.log('Hight : ',hight)
+		// const sum = this.sum(root);
+		// console.log('sum : ',sum)
+		// // sum
+		// const hight = this.hight(root);
+		// console.log('Hight : ',hight)
+
+		// diameter calculate
+	//    const diameter =	this.diameter(root);
+	// 	console.log("Calculate diamter : ",diameter)
+	   const diameter =	this.diameterByObject(root);
+		console.log("Calculate diameter by object : ",diameter.dm)
 		;
 	}
 
@@ -216,6 +224,53 @@ class Tree {
 		return maxHight
 	
 	
+	}
+
+	diameter(root){
+
+		if(!root){
+			return 0;
+		}
+
+		// calculate left diameter
+		const leftDiameter = this.diameter(root.left)
+		// calculate right diameter
+		const rightDiameter = this.diameter(root.right)
+
+		const diameter = this.hight(root.left) + this.hight(root.right) + 1;
+
+		return Math.max(leftDiameter,rightDiameter,diameter);
+		
+	}
+
+	diameterByObject(root){
+
+		if(!root){
+			return {
+				ht : 0,
+				dm : 0
+			}
+		}
+
+		const left = this.diameterByObject(root.left);
+		const right = this.diameterByObject(root.right);
+
+		const myHight = Math.max(left.ht,right.ht) + 1;
+
+		const diam1 = left.dm;
+		const diam2 = right.dm;
+		const diam3 = left.ht + right.ht+ 1
+
+		const maxDiam = Math.max(diam1,diam2,diam3)
+
+		return {
+			ht:myHight,
+			dm:maxDiam
+		}
+
+
+
+
 	}
 
 }
