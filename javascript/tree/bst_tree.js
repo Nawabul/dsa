@@ -18,60 +18,58 @@ class BST {
 		if(array.length == 0){
 			return null;
 		}
+		let root = this.root;
 		
 		for(let i=0; i<array.length; i++){
-			this.addNode(array[i]);
+			root = this.insert(root,array[i]);
 		}
+		this.root = root;
 	}
 
 	// print the tree in order
-	printTree(node){
+	printInOrderTree(node){
 		if(node == null){
 			return;
 		}
-		this.printTree(node.left);
+		this.printInOrderTree(node.left);
 		console.log(node.data);
-		this.printTree(node.right);
+		this.printInOrderTree(node.right);
 	}
 
 
 	// find rightmost node
-	addNode(data){
+	insert(root,data){
 		
-		if(this.root == null){
-			this.root = new Node(data);
-			return ;
+		if(root == null){
+			 return  new Node(data);
+			
 		}
-		
-		let current = this.root;
-		let currentData = current.data;
-		let newNode = new Node(data);
-		
-	
-		while(current != null){
-		if(currentData == data){
-			return ;
-		}
-		else if(currentData > data ){
-			if(current.left == null){
-				current.left = newNode;
-				return ;
-			}else{
-				current = current.left;
-				currentData = current.data;
-			}
+
+
+		if(data < root.data){
+			root.left = this.insert(root.left,data);
+
 		}else{
-			if(current.right == null){
-				current.right = newNode;
-				return ;
-			}else{
-				current = current.right;
-				currentData = current.data;
-			}
+			root.right = this.insert(root.right,data);
 		}
+		return root;
+
 	}
 
+	// find element exist in tree
+	search(root,data){
+		if(root == null){
+			return false;
 
+		}
+		if(root.data == data){
+			return true;
+		}
+		else if (data < root.data){
+			return this.search(root.left,data);
+		}else{
+			return this.search(root.right,data);
+		}
 	}
 }
 
@@ -81,4 +79,5 @@ let bst = new BST();
 let array = [10, 5, 15, 3, 7, 12, 18];
 bst.buildTree(array);
 console.log("In-order traversal of the BST:");
-bst.printTree(bst.root);
+// bst.printInOrderTree(bst.root);
+console.log(bst.search(bst.root, 9)); // true
