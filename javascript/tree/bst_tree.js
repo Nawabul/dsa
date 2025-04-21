@@ -44,22 +44,32 @@ class BST {
 		}
 		
 		let current = this.root;
-		let parent = null;
-		while(current !=null){
-			parent = current;
-			if(data < current.data){
+		let currentData = current.data;
+		let newNode = new Node(data);
+		
+	
+		while(current != null){
+		if(currentData == data){
+			return ;
+		}
+		else if(currentData > data ){
+			if(current.left == null){
+				current.left = newNode;
+				return ;
+			}else{
 				current = current.left;
+				currentData = current.data;
+			}
+		}else{
+			if(current.right == null){
+				current.right = newNode;
+				return ;
 			}else{
 				current = current.right;
+				currentData = current.data;
 			}
 		}
-		let newNode = new Node(data);
-		if(data < parent.data){
-			parent.left = newNode;
-		}
-		else{
-			parent.right = newNode;
-		}
+	}
 
 
 	}
