@@ -120,6 +120,46 @@ class BST {
 		}
 		return current;
 	}
+
+	// print in range 
+	printInRange(root,low,hight){
+	
+
+		// base case
+		if(root == null){
+			return null;
+		}
+		const data = root.data;
+		if(data >= low && data <= hight){
+			this.printInRange(root.left,low,hight);
+			console.log(data);
+			this.printInRange(root.right,low,hight);
+		}
+		else if(data >= hight){
+			this.printInRange(root.left,low,hight);
+		}
+		else{
+			this.printInRange(root.right,low,hight);
+		}
+	}
+
+	// print root to leaf path
+	printRootToLeafPath(root, array){
+
+		// base case
+		if(root == null){
+			return;
+		}
+		array.push(root.data);
+		// if leaf node, print the path
+		if(root.left == null && root.right == null){
+			console.log("Root to leaf path: " + array.join("->"));
+		}
+		this.printRootToLeafPath(root.left,array);
+		this.printRootToLeafPath(root.right,array);
+	
+		array.pop();
+	}
 }
 
 
@@ -128,9 +168,16 @@ let bst = new BST();
 let array = [10, 5, 15, 3, 7, 12, 18];
 bst.buildTree(array);
 console.log("In-order traversal of the BST:");
-bst.printInOrderTree(bst.root);
-// delete one node
-bst.delete(bst.root, 7);
-console.log("In-order traversal after deleting 7:");
-bst.printInOrderTree(bst.root);
+// bst.printInOrderTree(bst.root);
+// // delete one node
+// bst.delete(bst.root, 7);
+// console.log("In-order traversal after deleting 7:");
+// bst.printInOrderTree(bst.root);
 // console.log(bst.search(bst.root, 9)); // true
+// print in range
+// console.log("Print in range 7 to 15:");
+// bst.printInRange(bst.root, 7, 15);
+// // print root to leaf path
+console.log("Print root to leaf path:");
+let array1 = [];
+bst.printRootToLeafPath(bst.root,array1);
