@@ -71,6 +71,55 @@ class BST {
 			return this.search(root.right,data);
 		}
 	}
+
+	// delete element from tree
+	delete(root,data){
+		// base case
+		if(root == null){
+			return root;
+		}
+		// find the node to be deleted
+
+		// current data is matched
+		if(data < root.data){
+			// delete from left subtree
+			root.left = this.delete(root.left,data);
+		}else if (data > root.data){
+			// delete from right subtree
+			root.right = this.delete(root.right,data);
+		}
+		else{
+
+			// case 1 : no child
+			if(root.left == null && root.right == null){
+				return null;
+			}
+			// case 2 : one child
+			else if (root.left == null){
+				return root.right;
+			}
+			else if ( root.right == null){
+				return root.left;
+			}
+			// case 3 : two child
+			else{
+				let temp = this.minValueNode(root.right);
+				root.data = temp.data;
+				root.right = this.delete(root.right,temp.data);
+			}
+			
+		}
+		return root;
+	}
+
+	// find the minimum value in the tree
+	minValueNode(root){
+		let current = root;
+		while(current.left != null){
+			current = current.left;
+		}
+		return current;
+	}
 }
 
 
@@ -79,5 +128,9 @@ let bst = new BST();
 let array = [10, 5, 15, 3, 7, 12, 18];
 bst.buildTree(array);
 console.log("In-order traversal of the BST:");
-// bst.printInOrderTree(bst.root);
-console.log(bst.search(bst.root, 9)); // true
+bst.printInOrderTree(bst.root);
+// delete one node
+bst.delete(bst.root, 7);
+console.log("In-order traversal after deleting 7:");
+bst.printInOrderTree(bst.root);
+// console.log(bst.search(bst.root, 9)); // true
