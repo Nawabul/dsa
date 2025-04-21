@@ -16,7 +16,7 @@ class Tree {
 	diameterObject = {}
 
 	constructor(array){
-		const root = this.buildTree(array)
+		// const root = this.buildTree(array)
 		// console.log(root.data)
 		// // pre order traversal
 		// console.log("Pre Order Traversal")
@@ -48,8 +48,8 @@ class Tree {
 		// diameter calculate
 	//    const diameter =	this.diameter(root);
 	// 	console.log("Calculate diamter : ",diameter)
-	   const diameter =	this.diameterByObject(root);
-		console.log("Calculate diameter by object : ",diameter.dm)
+	//    const diameter =	this.diameterByObject(root);
+	// 	console.log("Calculate diameter by object : ",diameter.dm)
 		;
 	}
 
@@ -273,8 +273,96 @@ class Tree {
 
 	}
 
+	isSubTreeIdentical(rootTreeArray,subTreeArray){
+
+		const root = this.buildTree(rootTreeArray);
+		const subTree = this.buildTree(subTreeArray);
+	
+		const isIdentical = this.subTreeExist(root,subTree);
+		console.log('identical One: ',isIdentical)
+		return isIdentical;
+	}
+
+
+	subTreeExist(root,subRoot){
+		// root is null 
+		if(root == null){
+			return false;
+		}
+		
+		console.log(subRoot)
+		// subRoot is null
+		if(subRoot == null){
+			return true;
+		}
+		// get match root node
+		const matchNode = this.getRootNodeforSubTree(root,subRoot);
+		
+		
+		if(matchNode == null){
+			return false
+		}
+
+		const isIdentical = this.matchSubTree(matchNode,subRoot);
+		console.log('hi',isIdentical)
+		return isIdentical;
+
+	}
+
+	getRootNodeforSubTree(root,subRoot){
+		
+		
+		if(root == null){
+			return null;
+		}
+		// first check given root node
+		if(root.data == subRoot.data){
+			return root;
+		}
+
+		// check exist in left
+		const left = this.getRootNodeforSubTree(root.left,subRoot);
+		if(left !== null){
+			return left;
+		}
+		// check in right branch
+		const right = this.getRootNodeforSubTree(root.right,subRoot);
+		return right;
+	}
+
+	matchSubTree(root,subRoot){
+		console.log('end')
+		if(subRoot = null ){
+			console.log('subtree')
+				return true;
+		}
+		if(root = null ){
+			console.log('match tree ')
+			return false;
+		}
+		// check data is equal
+		const data = root.data == subRoot.data;
+		if(!data){
+			return false;
+		}
+		// check left
+		const left = this.matchSubTree(root.left,subRoot.left);
+		if(!left){
+			return false;
+			}
+		// check right
+		const right = this.matchSubTree(root.right,subRoot.right);
+		if(!right){
+			return false;
+		}
+		return true
+	}
+
 }
 
 const array = [1,2,4,-1,-1,7,3,-1,6,-1,-1]
 
 const TreeInstance = new Tree(array)
+
+const subTree = [4,2,4,-1,1];
+const isIdentical = TreeInstance.isSubTreeIdentical(array,subTree);
