@@ -31,8 +31,11 @@ class Trie {
 
 		// console.log(this.search("the")); // true
 		// console.log(this.search("thei")); // true
-		const wordBreakKey = "ilikesung";
-		console.log(this.wordBreak(wordBreakKey)) // true
+		// const wordBreakKey = "ilikesung";
+		// console.log(this.wordBreak(wordBreakKey)) // true
+
+		const startWith = "asams";
+		console.log(this.startWith(startWith)); // true
 	}
 
 
@@ -93,6 +96,24 @@ class Trie {
 			}
 		}
 		return false;
+	}
+
+
+	startWith(key){
+
+		// base case 
+		if(key.length == 0){
+			return true;
+		}
+		let node = this.root;
+		for(let i = 0;i<key.length;i++){
+			const index  = key.charCodeAt(i) - 'a'.charCodeAt(0);
+			if(node.children[index] == null){
+				return false;
+			}
+			node = node.children[index];
+		}
+		return true;
 	}
 }
 
