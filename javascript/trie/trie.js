@@ -19,6 +19,8 @@ class Node {
 class Trie {
 	root;
 
+	ans=""; // for longest string
+
 
 	constructor(){
 		this.root = new Node();
@@ -38,7 +40,13 @@ class Trie {
 		// console.log(this.startWith(startWith)); // true
 
 		// count unique substring 
-		console.log(this.uniqueSubstring()); 
+		// console.log(this.uniqueSubstring()); 
+		const word = ["apple","appl","app","ap","a","apply","bannana"];
+		for(let i = 0; i<word.length;i++){
+			
+			this.insert(word[i]);
+		}
+		console.log(this.longestString(this.root,"")); // 28
 	}
 
 
@@ -53,7 +61,7 @@ class Trie {
 
 			// at the end of word
 
-			if(word.length -1 === i){
+			if((word.length -1) == i){
 				node.children[index].eow = true;
 			}
 			node = node.children[index];
@@ -140,7 +148,7 @@ class Trie {
 	uniqueSubstring(){
 
 		let node = this.root;
-		const word = "ababa";
+		const word = "apple";
 		let count = 0;
 
 		// step 1 : insert all suffix of the word in the trie
@@ -153,6 +161,39 @@ class Trie {
 	
 
 		return count;
+	}
+
+	longestString(node,tepm){
+
+		// base case
+		if(node == null){
+			return ""
+		};
+
+		
+
+		for(let i =0;i<26;i++){
+			const char = String.fromCharCode(i + 'a'.charCodeAt(0));
+			
+			// append the character to the temp string
+			tepm += char;
+			
+			if(node.children[i] != null && node.children[i].eow ==true){
+				// check if the current string is greater than the ans string
+				if(tepm.length > this.ans.length){
+					this.ans = tepm;
+					
+				}
+				// call the function recursively for the next character
+				this.longestString(node.children[i],tepm);
+
+				// remove the last character from the temp string
+			}
+			tepm = tepm.substring(0,tepm.length-1);
+		}
+
+		return this.ans;
+
 	}
 }
 
