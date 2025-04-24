@@ -23,15 +23,16 @@ class Trie {
 	constructor(){
 		this.root = new Node();
 
-		const word = ["the","a","there","their","any"];
+		const word = ["i","like","sam","samsung","mobile"]
 
 		for(let i = 0; i<word.length;i++){
 			this.insert(word[i]);
 		}
 
-		console.log(this.search("the")); // true
-		console.log(this.search("thei")); // true
-
+		// console.log(this.search("the")); // true
+		// console.log(this.search("thei")); // true
+		const wordBreakKey = "ilikesung";
+		console.log(this.wordBreak(wordBreakKey)) // true
 	}
 
 
@@ -73,6 +74,25 @@ class Trie {
 
 		}
 		return true;
+	}
+
+
+	wordBreak(key){
+
+		// base case
+		if(key.length == 0){
+			return true;
+		}
+
+		for(let i = 1; i<=key.length; i++){
+			const first = key.substring(0,i);
+			const second = key.substring(i);
+
+			if(this.search(first) && this.wordBreak(second)){
+				return true;
+			}
+		}
+		return false;
 	}
 }
 
