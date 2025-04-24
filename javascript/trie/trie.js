@@ -23,19 +23,22 @@ class Trie {
 	constructor(){
 		this.root = new Node();
 
-		const word = ["i","like","sam","samsung","mobile"]
+		// const word = ["i","like","sam","samsung","mobile"]
 
-		for(let i = 0; i<word.length;i++){
-			this.insert(word[i]);
-		}
+		// for(let i = 0; i<word.length;i++){
+		// 	this.insert(word[i]);
+		// }
 
-		// console.log(this.search("the")); // true
+		// console.log(this .search("the")); // true
 		// console.log(this.search("thei")); // true
 		// const wordBreakKey = "ilikesung";
 		// console.log(this.wordBreak(wordBreakKey)) // true
 
-		const startWith = "asams";
-		console.log(this.startWith(startWith)); // true
+		// const startWith = "asams";
+		// console.log(this.startWith(startWith)); // true
+
+		// count unique substring 
+		console.log(this.uniqueSubstring()); 
 	}
 
 
@@ -114,6 +117,42 @@ class Trie {
 			node = node.children[index];
 		}
 		return true;
+	}
+
+
+	countNode(node){
+
+		if(node == null){
+			return 0;
+		}
+		let count = 0;
+		for(let i = 0; i<26;i++){
+			if(node.children[i] != null){
+				count += this.countNode(node.children[i]);
+				
+			}
+		}
+		count += 1; // count the current node
+		return count;
+
+	}
+
+	uniqueSubstring(){
+
+		let node = this.root;
+		const word = "ababa";
+		let count = 0;
+
+		// step 1 : insert all suffix of the word in the trie
+		for(let i = 0; i<word.length;i++){
+		
+			this.insert(word.substring(i));
+		}
+
+		count = this.countNode(node);
+	
+
+		return count;
 	}
 }
 
