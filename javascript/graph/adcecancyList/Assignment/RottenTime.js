@@ -1,4 +1,4 @@
-class Assignment {
+class RottenTime {
   constructor() {
     const firstCases = this.firstCases();
 
@@ -75,4 +75,4 @@ class Assignment {
   }
 }
 
-const assignment = new Assignment();
+const assignment = new RottenTime();
