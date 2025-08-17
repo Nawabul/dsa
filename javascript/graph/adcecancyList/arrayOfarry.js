@@ -20,7 +20,9 @@ class ArrayOfArrays {
 		// this.printVerticNeighbors(1); // Example to print neighbors of vertex 1
 		// this.bfs(); // Example to perform BFS starting from vertex 0
 		const visited = new Set();
-		this.dfs(0, visited); // Example to perform DFS starting from vertex 0
+		// this.dfs(0, visited); // Example to perform DFS starting from vertex 0
+		visited.add(0)
+		this.dfsAllPaths(0,5,visited,[]);
 	}
 
 	createGraph(vertices){
@@ -39,12 +41,13 @@ class ArrayOfArrays {
 		this.adjacencyList[1].push(new Edge(1, 0));
 		this.adjacencyList[1].push(new Edge(1, 3));
 		this.adjacencyList[2].push(new Edge(2, 0));
-		this.adjacencyList[2].push(new Edge(2, 3));
+		this.adjacencyList[2].push(new Edge(2, 4));
 		this.adjacencyList[3].push(new Edge(3, 1));
 		this.adjacencyList[3].push(new Edge(3, 4));
 		this.adjacencyList[3].push(new Edge(3, 5));
 		this.adjacencyList[4].push(new Edge(4, 2));
 		this.adjacencyList[4].push(new Edge(4, 3));
+		this.adjacencyList[4].push(new Edge(4, 5));
 		this.adjacencyList[5].push(new Edge(5, 3));
 		this.adjacencyList[5].push(new Edge(5, 4));
 		this.adjacencyList[5].push(new Edge(5, 6));
@@ -114,6 +117,32 @@ class ArrayOfArrays {
 			}
 
 		
+	}
+
+	// all path from src to target using dfs
+	dfsAllPaths(src, target,visited, path = []) {
+		const graph = this.adjacencyList;
+		const newPath = [...path]
+		if (src === target) {
+			newPath.push(target)
+			console.log("Path: ", newPath.join("->"));
+			return ;
+		}
+	
+		// Mark the current vertex as visited
+		newPath.push(src)
+		// Get the neighbors of the current vertex
+		const neighbors = graph[src];
+		// Iterate through the neighbors and add them to the stack
+		for (let i = 0; i < neighbors.length; i++) {
+			const edge = neighbors[i];
+			if(!visited.has(edge.dest)){
+				visited.add(edge.dest)
+				this.dfsAllPaths(edge.dest, target, visited, newPath);
+				visited.delete(edge.dest)
+			}
+			}
+
 	}
 
 
