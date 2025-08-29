@@ -8,7 +8,7 @@ class Tranjans {
 
 	constructor(){
 
-		this.tarjansAlgo()
+		this.getAp()
 	}
 
 
@@ -36,6 +36,7 @@ class Tranjans {
 		graph[2].push(new Edge(2,0))
 		graph[2].push(new Edge(2,1))
 		graph[2].push(new Edge(2,3))
+
 		
 		graph[3].push(new Edge(3,0))
 		graph[3].push(new Edge(3,2))
@@ -86,6 +87,72 @@ class Tranjans {
 
 		}
 
+	}
+
+
+	apDfs(graph,cur,par,time,visited,dt,low,ap){
+
+		visited[cur] = true;
+		dt[cur] = low[cur] = ++time
+		let children = 0
+		const neighbors = graph[cur]
+
+		for(const nei of neighbors){
+
+			const dest = nei.dest;
+			// parent 
+			if(dest == par){
+				continue
+			}
+
+			// visited 
+			if(visited[dest]){
+				low[cur] = Math.min(low[cur],dt[dest])
+			}else{
+
+				this.apDfs(graph,dest,cur,time,visited,dt,low,ap)
+				low[cur] = Math.min(low[cur],low[dest])
+
+				// articulation point 
+				if(par != -1 && dt[cur]<=low[dest]){
+					ap[cur] = true
+				}
+				children++
+			}
+		}
+
+		// start point is a ap
+		if(par == -1 && children>1){
+			ap[cur] = true
+		}
+	}
+
+
+	getAp(){
+		const graph = this.initializeGraph();
+		const v = graph.length
+		const dt = []
+		const low = []
+		const ap = []
+		const visited = []
+		for(let i = 0; i<v; i++){
+			visited[i] = false
+			ap[i] = false
+		}
+
+		for(let i=0;i<v;i++){
+
+			if(!visited[i]){
+			  this.apDfs(graph,i,-1,0,visited,dt,low,ap)
+			}
+		}
+
+		// print ap
+		for(let i = 0; i<v; i++){
+			if(ap[i]){
+				console.log("AP : ",i)
+			}
+		}
 	}
 
 	// tranjans algo
