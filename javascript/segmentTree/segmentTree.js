@@ -30,7 +30,11 @@ class SegmentTree {
   }
 
   // update query
-  updateQuery(idx, node, value, left, right) {
+  updateQuery(idx, value) {
+    this.processUpdateQuery(idx, 0, value, 0, this.getRight());
+  }
+
+  processUpdateQuery(idx, node, value, left, right) {
     if (left == right) {
       this.arr[node] = value;
       return;
@@ -39,9 +43,9 @@ class SegmentTree {
     const mid = (left + right) >> 1;
 
     if (idx <= mid) {
-      this.updateQuery(idx, 2 * node + 1, value, left, mid);
+      this.processUpdateQuery(idx, 2 * node + 1, value, left, mid);
     } else {
-      this.updateQuery(idx, 2 * node + 2, value, mid + 1, right);
+      this.processUpdateQuery(idx, 2 * node + 2, value, mid + 1, right);
     }
 
     // sum
@@ -52,6 +56,6 @@ class SegmentTree {
 const tree = new SegmentTree([3, 1, 2, 7]);
 
 // update
-tree.updateQuery(1, 0, 2, 0, tree.getRight());
+tree.updateQuery(1, 2);
 
 console.log("Node : ", tree.arr);
