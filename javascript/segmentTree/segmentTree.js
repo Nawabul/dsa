@@ -51,11 +51,31 @@ class SegmentTree {
     // sum
     this.arr[node] = this.arr[2 * node + 1] + this.arr[2 * node + 2];
   }
+
+  getRangeQuery(start, end) {
+    return this.processRangeQuery(0, start, end, 0, this.getRight());
+  }
+
+  processRangeQuery(node, start, end, left, right) {
+    // out of range
+    if (right < start || left > end) {
+      return 0;
+    }
+    // complete in range
+    if (left >= start && right <= end) {
+      return this.arr[node];
+    }
+    const mid = (left + right) >> 1;
+    let sum = this.processRangeQuery(2 * node + 1, start, end, left, mid);
+    sum += this.processRangeQuery(2 * node + 2, start, end, mid + 1, right);
+
+    return sum;
+  }
 }
 
-const tree = new SegmentTree([3, 1, 2, 7]);
+const tree = new SegmentTree([3, 1, 2, 7, 2, 1, 2, 3]);
 
-// update
-tree.updateQuery(1, 2);
-
-console.log("Node : ", tree.arr);
+const start = 2;
+const end = 6;
+console.log(`Range Query [${start}-${end}] : `);
+console.log(tree.getRangeQuery(start, end));
